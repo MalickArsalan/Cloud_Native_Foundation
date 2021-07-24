@@ -1,8 +1,13 @@
 {
     "cSpell.words": [
+        "Autoscaler",
+        "Buildah",
         "Buildpacks",
         "CNCF",
+        "CRDs",
         "Kubernetes",
-        "VM's"
+        "Podman",
+        "VM's",
+        "pixelpotato"
     ]
 }
