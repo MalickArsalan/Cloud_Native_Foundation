@@ -1,0 +1,1 @@
+{"rsync":{"/vagrant":{"type":"rsync","guestpath":"/vagrant","hostpath":"D:/Udacity/SUSE Cloud Native Fundamentals/Cloud_Native_Foundation/3. Container Orchestration wit Kubernetes/11. Deploy Your First Kubernetes Cluster","disabled":false,"__vagrantfile":true,"owner":"vagrant","group":"vagrant"}}}

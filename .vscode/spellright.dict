@@ -1,2 +1,15 @@
 solutionizing
 Autoscaler
+kube-apiserver
+kube-scheduler
+kube-controller-manager
+etcd
+kubelet
+kube-proxy
+apiserver_
+_kube
+kubeadm
+Kubespray
+minikube
+kubectl
+Vagrantfile
