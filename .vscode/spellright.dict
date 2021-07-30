@@ -13,3 +13,5 @@ Kubespray
 minikube
 kubectl
 Vagrantfile
+Kubeconfig
+kubeconfig
