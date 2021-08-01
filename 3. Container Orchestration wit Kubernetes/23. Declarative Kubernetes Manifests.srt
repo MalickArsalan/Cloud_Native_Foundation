@@ -1,0 +1,496 @@
+1
+00:00:00,000 --> 00:00:02,490
+Kubectl is the Kubernetes CLI,
+
+2
+00:00:02,490 --> 00:00:05,820
+that supports two different configuration management techniques,
+
+3
+00:00:05,820 --> 00:00:08,070
+imperative and declarative.
+
+4
+00:00:08,070 --> 00:00:11,820
+Within imperative approach, the operations are performed on
+
+5
+00:00:11,820 --> 00:00:16,515
+the live object in the cluster and is best suited for development phases.
+
+6
+00:00:16,515 --> 00:00:21,090
+It presents a low entry lever bar to interact with the cluster.
+
+7
+00:00:21,090 --> 00:00:24,080
+On the other side, the operations in
+
+8
+00:00:24,080 --> 00:00:28,010
+the declarative approach are performed on the manifest stored locally,
+
+9
+00:00:28,010 --> 00:00:31,399
+and it's recommended to use it in production systems.
+
+10
+00:00:31,399 --> 00:00:33,350
+However, at the same time,
+
+11
+00:00:33,350 --> 00:00:36,170
+this approach presents quite a high learning curve as
+
+12
+00:00:36,170 --> 00:00:41,050
+an in-depth understanding of the YAML manifest structure is required.
+
+13
+00:00:41,050 --> 00:00:44,000
+So far all the kubectl commands that you
+
+14
+00:00:44,000 --> 00:00:47,330
+have been learning are using the imperative approach.
+
+15
+00:00:47,330 --> 00:00:50,135
+You have created, interacted,
+
+16
+00:00:50,135 --> 00:00:53,275
+and manage resources directly on the live cluster.
+
+17
+00:00:53,275 --> 00:00:57,200
+For example, while creating the go-helloworld deployment,
+
+18
+00:00:57,200 --> 00:00:59,930
+we fear replicas in the test-udacity namespace.
+
+19
+00:00:59,930 --> 00:01:02,870
+You have used the imperative approach.
+
+20
+00:01:02,870 --> 00:01:05,810
+However, using command line arguments is not
+
+21
+00:01:05,810 --> 00:01:08,920
+suitable for some of the more advanced configurations,
+
+22
+00:01:08,920 --> 00:01:13,605
+such as readiness aliveness probes, or volume mountains.
+
+23
+00:01:13,605 --> 00:01:16,385
+To solve that vast configuration issue,
+
+24
+00:01:16,385 --> 00:01:19,055
+the YAML manifests were introduced.
+
+25
+00:01:19,055 --> 00:01:22,880
+The manifests encapsulate the full configuration for the covering
+
+26
+00:01:22,880 --> 00:01:27,970
+these objects where we can expand the definition and state of the resources.
+
+27
+00:01:27,970 --> 00:01:30,170
+This is done through YAML,
+
+28
+00:01:30,170 --> 00:01:35,015
+the data serialization standard of choice by the Kubernetes community,
+
+29
+00:01:35,015 --> 00:01:39,504
+and manifest structure consists of four obligatory sections;
+
+30
+00:01:39,504 --> 00:01:44,310
+API version, kind, metadata, and spec.
+
+31
+00:01:44,310 --> 00:01:50,210
+API version represents the Kubernetes API used to create an object.
+
+32
+00:01:50,210 --> 00:01:55,105
+Kind defines the object type to be created or configured.
+
+33
+00:01:55,105 --> 00:01:59,285
+Metadata stores the data that makes the objects identifiable,
+
+34
+00:01:59,285 --> 00:02:03,485
+such as name, namespace, and labels.
+
+35
+00:02:03,485 --> 00:02:08,065
+Spec defines the desired configuration state of the resource.
+
+36
+00:02:08,065 --> 00:02:10,715
+To get the YAML manifest of the resource,
+
+37
+00:02:10,715 --> 00:02:15,125
+use the kubectl get command associated with the dash or YAML flag,
+
+38
+00:02:15,125 --> 00:02:18,835
+which represents the output should be YAML formatted.
+
+39
+00:02:18,835 --> 00:02:22,595
+Let's explore a YAML manifests for a deployment resource.
+
+40
+00:02:22,595 --> 00:02:25,985
+In this example, we have the API version,
+
+41
+00:02:25,985 --> 00:02:28,910
+which is set to apps for slash v1.
+
+42
+00:02:28,910 --> 00:02:32,765
+Kind is deployment and in the metadata section,
+
+43
+00:02:32,765 --> 00:02:36,320
+we defined the name of the deployment, which is go-helloworld,
+
+44
+00:02:36,320 --> 00:02:38,420
+and the namespace it presides in,
+
+45
+00:02:38,420 --> 00:02:41,080
+here under test-udacity namespace.
+
+46
+00:02:41,080 --> 00:02:47,545
+Additionally, we said the labels for the deployment for example app equals go-helloworld.
+
+47
+00:02:47,545 --> 00:02:50,495
+Labels are powerful selectors in Kubernetes
+
+48
+00:02:50,495 --> 00:02:54,085
+that are used to identifying structure will deploy resources.
+
+49
+00:02:54,085 --> 00:02:56,870
+To create a deployment using a YAML manifest,
+
+50
+00:02:56,870 --> 00:02:59,260
+use the kubectl apply command.
+
+51
+00:02:59,260 --> 00:03:02,180
+This will require the path to the YAML file with
+
+52
+00:03:02,180 --> 00:03:06,395
+the desired configuration and it can be done by using the dash f flag.
+
+53
+00:03:06,395 --> 00:03:09,325
+In this example, we create a deployment defined,
+
+54
+00:03:09,325 --> 00:03:11,525
+indeed deployed at YAML file.
+
+55
+00:03:11,525 --> 00:03:15,595
+The deployment spec section can be split in free main areas.
+
+56
+00:03:15,595 --> 00:03:19,075
+The replica set configuration that will trigger the creation
+
+57
+00:03:19,075 --> 00:03:23,275
+of a replica set resource and define the desired amount of ports.
+
+58
+00:03:23,275 --> 00:03:28,105
+In this example, a replica set will be created to manage free pods.
+
+59
+00:03:28,105 --> 00:03:33,340
+The deployment configuration where the parameters for the rolling out strategy are set.
+
+60
+00:03:33,340 --> 00:03:36,985
+Copernicus currently supports two rollout strategies.
+
+61
+00:03:36,985 --> 00:03:39,550
+Recreate and rolling update.
+
+62
+00:03:39,550 --> 00:03:44,435
+Recreate will kill all existing pods before new ones are created,
+
+63
+00:03:44,435 --> 00:03:49,270
+and rolling update will update the pods in the rolling out fashion.
+
+64
+00:03:49,270 --> 00:03:53,885
+The last section is the container template where we can set the image,
+
+65
+00:03:53,885 --> 00:03:57,625
+image pull policy, name of the container, and many more.
+
+66
+00:03:57,625 --> 00:04:00,630
+In this example, we aim to an container with
+
+67
+00:04:00,630 --> 00:04:04,930
+the go-helloworld application in version 1.1.0,
+
+68
+00:04:04,930 --> 00:04:08,750
+a pull policy to download the image only when it's not available in
+
+69
+00:04:08,750 --> 00:04:12,730
+the host and container name set to go-helloworld.
+
+70
+00:04:12,730 --> 00:04:14,810
+However, in the container template,
+
+71
+00:04:14,810 --> 00:04:17,210
+more advanced configuration can be defined,
+
+72
+00:04:17,210 --> 00:04:20,480
+such as containerPort or the port that
+
+73
+00:04:20,480 --> 00:04:24,230
+the application is listening to and should be exposed for the container.
+
+74
+00:04:24,230 --> 00:04:28,270
+LivenessProbe, which is used to check if the port is up and running.
+
+75
+00:04:28,270 --> 00:04:30,260
+If the port is in an error state,
+
+76
+00:04:30,260 --> 00:04:32,915
+it will be automatically restarted.
+
+77
+00:04:32,915 --> 00:04:36,740
+ReadinessProbe, which is used to check if the application is
+
+78
+00:04:36,740 --> 00:04:40,545
+running inside the container and is ready to receive traffic.
+
+79
+00:04:40,545 --> 00:04:42,965
+Going back to the previous lessons,
+
+80
+00:04:42,965 --> 00:04:47,225
+when we talked about best practices to be adopted at the implementation stage.
+
+81
+00:04:47,225 --> 00:04:50,344
+One practice that focus on resource consumption.
+
+82
+00:04:50,344 --> 00:04:53,780
+Having awareness of the application boundaries for CPU and
+
+83
+00:04:53,780 --> 00:04:58,875
+memory is fundamental to ensure service availability 24-7.
+
+84
+00:04:58,875 --> 00:05:02,180
+This reduces the chances of an application to start when
+
+85
+00:05:02,180 --> 00:05:06,349
+CPU or be killed by insufficient memory capacity.
+
+86
+00:05:06,349 --> 00:05:10,430
+Once you have identified the application resource necessities,
+
+87
+00:05:10,430 --> 00:05:13,945
+this can be placed in the deployment manifest.
+
+88
+00:05:13,945 --> 00:05:15,945
+In the container template,
+
+89
+00:05:15,945 --> 00:05:18,515
+it is possible to define the resource requests,
+
+90
+00:05:18,515 --> 00:05:21,830
+which guarantees that the pod will be allocated with the request,
+
+91
+00:05:21,830 --> 00:05:24,160
+CPU, and memory values.
+
+92
+00:05:24,160 --> 00:05:26,190
+For example, in this case,
+
+93
+00:05:26,190 --> 00:05:28,470
+the go-helloworld container is requiring
+
+94
+00:05:28,470 --> 00:05:34,015
+64 mebibytes and 250 mini CPUs to run successfully.
+
+95
+00:05:34,015 --> 00:05:36,950
+Additionally, to ensure that the workload is not
+
+96
+00:05:36,950 --> 00:05:39,920
+consuming all of the available resources within a cluster,
+
+97
+00:05:39,920 --> 00:05:42,754
+the resource limits can be specified.
+
+98
+00:05:42,754 --> 00:05:47,980
+This ensures that the container cannot surpass the CPU and memory limits defined.
+
+99
+00:05:47,980 --> 00:05:52,400
+In this example, we limit the go-helloworld container to consume
+
+100
+00:05:52,400 --> 00:05:57,980
+no more than 128 mebibytes and 500 mini CPUs.
+
+101
+00:05:57,980 --> 00:06:02,510
+Now, let's explore how a YAML manifest for a service is constructed.
+
+102
+00:06:02,510 --> 00:06:08,299
+As expected, the service resource has the same four main required sections.
+
+103
+00:06:08,299 --> 00:06:11,950
+API version here is said to be one.
+
+104
+00:06:11,950 --> 00:06:15,550
+Kind which here is set to service.
+
+105
+00:06:15,550 --> 00:06:21,425
+Metadata, which will hold the parameters for the resource name, namespace, and labels.
+
+106
+00:06:21,425 --> 00:06:27,455
+Here, I'll meet it to make the output shorter and the spec section,
+
+107
+00:06:27,455 --> 00:06:31,900
+which contains the configuration for the exposed ports and service type.
+
+108
+00:06:31,900 --> 00:06:36,665
+In this example, we create a cluster API service that is serving on port
+
+109
+00:06:36,665 --> 00:06:42,910
+8111 and directs that traffic via TCP to the container on port 6112.
+
+110
+00:06:42,910 --> 00:06:45,650
+Kubernetes documentation is the best place to
+
+111
+00:06:45,650 --> 00:06:48,860
+explore the available parameters for YAML manifests.
+
+112
+00:06:48,860 --> 00:06:53,425
+However, you can easily construct a YAML template using kubectl.
+
+113
+00:06:53,425 --> 00:06:59,135
+This is possible by using the dry run and dash O YAML flags which instructs
+
+114
+00:06:59,135 --> 00:07:01,940
+the command should be validated on the client-side
+
+115
+00:07:01,940 --> 00:07:05,050
+only and output the result in YAML format.
+
+116
+00:07:05,050 --> 00:07:09,155
+For example, if you want to get the template for a deployment,
+
+117
+00:07:09,155 --> 00:07:13,370
+you need to use the create command and pass the required parameters.
+
+118
+00:07:13,370 --> 00:07:16,825
+Here we pass the name of the deployment, which is 'demo',
+
+119
+00:07:16,825 --> 00:07:19,665
+and the image that we want to execute,
+
+120
+00:07:19,665 --> 00:07:25,530
+here nginx, associated with a dry run and dash O YAML flags.
+
+121
+00:07:25,530 --> 00:07:28,310
+This will output the desired template that you can use
+
+122
+00:07:28,310 --> 00:07:31,840
+fervor to configure our YAML manifests.
+
+123
+00:07:31,840 --> 00:07:35,790
+Also, you can use the kubectl apply and delete to
+
+124
+00:07:35,790 --> 00:07:40,500
+create and delete resources which are defined for YAML manifests.
+

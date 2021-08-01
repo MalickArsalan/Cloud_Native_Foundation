@@ -15,3 +15,11 @@ kubectl
 Vagrantfile
 Kubeconfig
 kubeconfig
+Configmaps
+busybox
+go-helloworld
+Configmap
+apiversion
+millicpus
+Dockerfile
+cheetsheet

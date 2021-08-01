@@ -1,0 +1,472 @@
+1
+00:00:00,000 --> 00:00:02,970
+This video, will provide a solution to
+
+2
+00:00:02,970 --> 00:00:07,215
+the exercise which aims to containerize a Go application.
+
+3
+00:00:07,215 --> 00:00:10,710
+First of all, let's look into the insights of the current folder,
+
+4
+00:00:10,710 --> 00:00:13,080
+which is our application folder.
+
+5
+00:00:13,080 --> 00:00:14,835
+If you list the content,
+
+6
+00:00:14,835 --> 00:00:17,039
+you'll be able to see a Dockerfile,
+
+7
+00:00:17,039 --> 00:00:20,645
+README.md and main.go file.
+
+8
+00:00:20,645 --> 00:00:23,945
+First of all let's look into the content of our main.go file,
+
+9
+00:00:23,945 --> 00:00:29,870
+which will contain the functionality or the logic for our application.
+
+10
+00:00:29,870 --> 00:00:32,085
+If we look inside the file,
+
+11
+00:00:32,085 --> 00:00:35,944
+we'll be able to see that we have a simple Hello World application,
+
+12
+00:00:35,944 --> 00:00:42,905
+that will return a Hello World message on the main route, on port 6111.
+
+13
+00:00:42,905 --> 00:00:47,420
+The next thing, once we have developed our application,
+
+14
+00:00:47,420 --> 00:00:50,165
+is to look into the Dockerfile.
+
+15
+00:00:50,165 --> 00:00:54,560
+The content of the Dockerfile will contain all the instructions or steps,
+
+16
+00:00:54,560 --> 00:00:59,285
+to make sure that we can build our application and execute it when the container starts.
+
+17
+00:00:59,285 --> 00:01:01,080
+The first instruction is FROM,
+
+18
+00:01:01,080 --> 00:01:02,850
+which sets a golang,
+
+19
+00:01:02,850 --> 00:01:06,120
+or a Go-based image, for our application.
+
+20
+00:01:06,120 --> 00:01:07,940
+We're using an Alpine version,
+
+21
+00:01:07,940 --> 00:01:12,755
+which is a lightweight version for a Go-based image.
+
+22
+00:01:12,755 --> 00:01:16,265
+The second thing we do is to set the working directory,
+
+23
+00:01:16,265 --> 00:01:18,455
+so pretty much the location from where
+
+24
+00:01:18,455 --> 00:01:22,325
+all the fervor commands or future commands will be executed from.
+
+25
+00:01:22,325 --> 00:01:25,740
+Here we set it to /gosrcapp.
+
+26
+00:01:26,950 --> 00:01:31,940
+Then we copy all the existing content from the current directory on
+
+27
+00:01:31,940 --> 00:01:37,390
+the local host to the directory inside the container.
+
+28
+00:01:37,390 --> 00:01:41,080
+Since we said the WORKDIR to gosrc/app,
+
+29
+00:01:41,080 --> 00:01:45,125
+the contents are going to be copied within this path.
+
+30
+00:01:45,125 --> 00:01:49,745
+The next thing that we do is to build our application.
+
+31
+00:01:49,745 --> 00:01:53,905
+For that, to build a Go application we use the go build Command,
+
+32
+00:01:53,905 --> 00:01:58,400
+and then we can specify the output of our build.
+
+33
+00:01:58,400 --> 00:02:01,505
+So pretty much this will create a binary with a name helloworld,
+
+34
+00:02:01,505 --> 00:02:06,065
+which will contain the compiled code for our Hello World application.
+
+35
+00:02:06,065 --> 00:02:11,135
+Of course, we need to expose the port since our application is listening on port 111.
+
+36
+00:02:11,135 --> 00:02:16,735
+We can use the EXPOSE Command to specify this port as the main one for our application.
+
+37
+00:02:16,735 --> 00:02:21,740
+The last thing is to start our application at the container start.
+
+38
+00:02:21,740 --> 00:02:25,760
+For that, we just invoke our binary, or compiled binary,
+
+39
+00:02:25,760 --> 00:02:30,695
+which is helloworld, which we have created from our go build stage.
+
+40
+00:02:30,695 --> 00:02:33,480
+Let's exit this file.
+
+41
+00:02:33,480 --> 00:02:36,220
+Once we have our Dockerfile,
+
+42
+00:02:36,220 --> 00:02:39,320
+the next thing is to build an image for that.
+
+43
+00:02:39,320 --> 00:02:42,920
+To do so, we use the docker build Command,
+
+44
+00:02:42,920 --> 00:02:45,285
+and we can take our image,
+
+45
+00:02:45,285 --> 00:02:49,935
+to have it as a go-helloworld application,
+
+46
+00:02:49,935 --> 00:02:52,860
+and we specified the current path, or the current directory,
+
+47
+00:02:52,860 --> 00:02:55,070
+as the one which contains the Dockerfile and
+
+48
+00:02:55,070 --> 00:02:58,145
+any source code and dependencies for our application.
+
+49
+00:02:58,145 --> 00:03:04,185
+Let's hit Enter. I just have to use the right tag,
+
+50
+00:03:04,185 --> 00:03:07,065
+so -t is pretty much our tag Command.
+
+51
+00:03:07,065 --> 00:03:12,140
+As expected, this will download the goalpine image,
+
+52
+00:03:12,140 --> 00:03:14,795
+which is our base image for the application.
+
+53
+00:03:14,795 --> 00:03:20,045
+As expected, we need to download the golangalpine,
+
+54
+00:03:20,045 --> 00:03:21,395
+or the go-base image,
+
+55
+00:03:21,395 --> 00:03:22,790
+to our local host,
+
+56
+00:03:22,790 --> 00:03:26,405
+and on top of it we're going to run the instructions from the Dockerfile,
+
+57
+00:03:26,405 --> 00:03:28,915
+such as setting the WORKDIR,
+
+58
+00:03:28,915 --> 00:03:34,725
+coping the files from the local directory to the location inside the container,
+
+59
+00:03:34,725 --> 00:03:36,970
+and compile the code,
+
+60
+00:03:36,970 --> 00:03:40,220
+and start the application when the container starts.
+
+61
+00:03:40,220 --> 00:03:41,960
+To see our image,
+
+62
+00:03:41,960 --> 00:03:45,370
+we have to do a docker images Command.
+
+63
+00:03:45,370 --> 00:03:48,530
+Here, like we said, we have a go-helloworld application,
+
+64
+00:03:48,530 --> 00:03:50,180
+with the latest tag,
+
+65
+00:03:50,180 --> 00:03:53,360
+which has been created 32 seconds ago.
+
+66
+00:03:53,360 --> 00:03:58,370
+We'll be able to run our application by using the docker run command.
+
+67
+00:03:58,370 --> 00:04:01,160
+It's always good to test the behavior of our application
+
+68
+00:04:01,160 --> 00:04:04,670
+before it pushing to public image registry.
+
+69
+00:04:04,670 --> 00:04:07,910
+For that we can use the docker run Command.
+
+70
+00:04:07,910 --> 00:04:11,090
+We choose to run our container in a detached mode,
+
+71
+00:04:11,090 --> 00:04:12,815
+so it's going to run in the background.
+
+72
+00:04:12,815 --> 00:04:16,685
+Then we'll be able to set the port for our container,
+
+73
+00:04:16,685 --> 00:04:18,620
+which will want to expose on the host.
+
+74
+00:04:18,620 --> 00:04:21,290
+In this case, we use port 6111,
+
+75
+00:04:21,290 --> 00:04:24,170
+in both circumstances, and then we just need to
+
+76
+00:04:24,170 --> 00:04:28,510
+specify the name of our image, which is go-helloworld.
+
+77
+00:04:28,510 --> 00:04:32,080
+Let's hit Enter. The container has being started,
+
+78
+00:04:32,080 --> 00:04:33,790
+and we have a long id,
+
+79
+00:04:33,790 --> 00:04:35,180
+which has been output.
+
+80
+00:04:35,180 --> 00:04:38,780
+To see our newly created container we can do a docker ps,
+
+81
+00:04:38,780 --> 00:04:41,140
+which will list the latest created containers,
+
+82
+00:04:41,140 --> 00:04:43,520
+such as the go-helloworld application,
+
+83
+00:04:43,520 --> 00:04:46,685
+which runs the helloworld binary,
+
+84
+00:04:46,685 --> 00:04:51,540
+and exposed it on port 6111 from the container to the host.
+
+85
+00:04:51,540 --> 00:04:55,480
+We can verify that by going to our local browser,
+
+86
+00:04:55,480 --> 00:04:58,620
+and if we just enter the local host,
+
+87
+00:04:58,620 --> 00:05:03,735
+which is 127.0.0.1, on port 6111,
+
+88
+00:05:03,735 --> 00:05:07,965
+we'll be able to see our helloworld from our Go application.
+
+89
+00:05:07,965 --> 00:05:11,090
+Before we push our image to Docker Hub,
+
+90
+00:05:11,090 --> 00:05:16,100
+let's make sure that we have no tags available at the moment,
+
+91
+00:05:16,100 --> 00:05:19,930
+so we have just a fresh repository, which is go-helloworld.
+
+92
+00:05:19,930 --> 00:05:22,954
+If we click on the repository,
+
+93
+00:05:22,954 --> 00:05:26,640
+and if we navigate to our tags option,
+
+94
+00:05:26,640 --> 00:05:28,950
+we'll be able to see that we have no available tags,
+
+95
+00:05:28,950 --> 00:05:31,835
+so pretty much have no versions for our application.
+
+96
+00:05:31,835 --> 00:05:33,675
+Let's tag our application.
+
+97
+00:05:33,675 --> 00:05:36,685
+For that, we're going to use a docker tag command,
+
+98
+00:05:36,685 --> 00:05:41,270
+where we can specify the name of the image on the local host,
+
+99
+00:05:41,270 --> 00:05:46,970
+and the name of the image in which we reserve for Docker Hub.
+
+100
+00:05:46,970 --> 00:05:51,230
+As such, you're going to specify the Docker Hub repository,
+
+101
+00:05:51,230 --> 00:05:52,835
+which is going to be pixelpotato,
+
+102
+00:05:52,835 --> 00:05:56,660
+the image name which is going to be go-helloworld, and of course,
+
+103
+00:05:56,660 --> 00:05:58,040
+the version of the image,
+
+104
+00:05:58,040 --> 00:06:01,060
+which in this case is 1.0.0.
+
+105
+00:06:01,060 --> 00:06:07,815
+Let's hit Enter. We can verify the new tag by issuing a docker images Command,
+
+106
+00:06:07,815 --> 00:06:14,699
+and here we see that we have a new tag for the pixelpotato repository,
+
+107
+00:06:14,699 --> 00:06:18,795
+and of course, the version is going to be 1.0.0.
+
+108
+00:06:18,795 --> 00:06:22,405
+The last thing we need to do is to push our image Docker Hub.
+
+109
+00:06:22,405 --> 00:06:24,990
+For that, we use the docker push Command,
+
+110
+00:06:24,990 --> 00:06:29,945
+and we just need to specify the new tag that we've just created.
+
+111
+00:06:29,945 --> 00:06:34,370
+If you hit Enter, this will take all layers from the current image,
+
+112
+00:06:34,370 --> 00:06:36,690
+and push them to Docker Hub.
+
+113
+00:06:36,740 --> 00:06:40,070
+Cool. Our image has been pushed successfully.
+
+114
+00:06:40,070 --> 00:06:47,150
+The only thing that's remaining is to validate that by refreshing our text page.
+
+115
+00:06:47,150 --> 00:06:51,005
+Here we're able to see that a new image version,
+
+116
+00:06:51,005 --> 00:06:56,000
+in version 1.0.0, has been pushed just a few seconds ago.
+
+117
+00:06:56,000 --> 00:07:01,355
+Just pretty much l will be able to containerize any application using Docker,
+
+118
+00:07:01,355 --> 00:07:04,800
+including a go-helloworld application.
+

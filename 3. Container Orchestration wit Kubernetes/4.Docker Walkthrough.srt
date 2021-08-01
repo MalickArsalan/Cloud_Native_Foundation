@@ -1,0 +1,600 @@
+1
+00:00:00,000 --> 00:00:03,630
+In this demo, we will showcase how can we package an application using
+
+2
+00:00:03,630 --> 00:00:07,440
+Docker and using some of the commands we have been learning so far,
+
+3
+00:00:07,440 --> 00:00:10,995
+such as Docker build, tag, and push.
+
+4
+00:00:10,995 --> 00:00:16,290
+The aim of this demo is to dockerize a Python Hello World application.
+
+5
+00:00:16,290 --> 00:00:20,810
+For that, let's look first into the content of our folder.
+
+6
+00:00:20,810 --> 00:00:23,255
+If I list all the files I currently have,
+
+7
+00:00:23,255 --> 00:00:25,855
+there's going to be an app.py,
+
+8
+00:00:25,855 --> 00:00:30,244
+which will contain the main functionalities of our application,
+
+9
+00:00:30,244 --> 00:00:35,590
+requirements.txt, which will define the dependencies for our application,
+
+10
+00:00:35,590 --> 00:00:37,940
+and then we have a Dockerfile as well.
+
+11
+00:00:37,940 --> 00:00:41,955
+Let's start by looking into our app.py file.
+
+12
+00:00:41,955 --> 00:00:47,660
+If I do a vi app.py and we're just looking inside the application,
+
+13
+00:00:47,660 --> 00:00:53,020
+we can see it's a very simple Flask application that has a status,
+
+14
+00:00:53,020 --> 00:01:00,805
+metrics, and it has a main route or endpoint which will just return Hello World.
+
+15
+00:01:00,805 --> 00:01:04,605
+The requirements.txt, if we cut that particular file,
+
+16
+00:01:04,605 --> 00:01:08,870
+we'll have all the necessary dependencies to make sure that our application is running.
+
+17
+00:01:08,870 --> 00:01:12,140
+For example, we need to make sure that we have Flask installed,
+
+18
+00:01:12,140 --> 00:01:15,230
+so we will specify that as a dependency.
+
+19
+00:01:15,230 --> 00:01:18,365
+Now, once we have our application and requirements defined,
+
+20
+00:01:18,365 --> 00:01:20,585
+we'll be able to dockerize it.
+
+21
+00:01:20,585 --> 00:01:22,975
+Let's look into our docker file.
+
+22
+00:01:22,975 --> 00:01:26,750
+For that, I'm going to type vi Dockerfile and here we have
+
+23
+00:01:26,750 --> 00:01:32,730
+the content of what exactly we can construct our Docker image.
+
+24
+00:01:33,260 --> 00:01:41,750
+From label will specify the base image that we'd like to use to run our application.
+
+25
+00:01:41,750 --> 00:01:44,450
+In this case, since we have a Python application,
+
+26
+00:01:44,450 --> 00:01:46,945
+we're going to use a Python based image.
+
+27
+00:01:46,945 --> 00:01:50,895
+Here we specify version and it's 3.8,
+
+28
+00:01:50,895 --> 00:01:54,860
+so we're going to use the 3.8 version of the Python based image.
+
+29
+00:01:54,860 --> 00:01:58,835
+Label is used to just add metadata to the image,
+
+30
+00:01:58,835 --> 00:02:04,000
+such as the maintainer label and here we set it to Katie Gamanji.
+
+31
+00:02:04,000 --> 00:02:10,810
+The copy command is used to copy any files from the local host to the container.
+
+32
+00:02:10,810 --> 00:02:13,790
+In this case, we copy all the contents from
+
+33
+00:02:13,790 --> 00:02:18,380
+the current folder to the forward slash app inside of the container.
+
+34
+00:02:18,380 --> 00:02:24,410
+The second thing we do as well is to set the working directory to the forward slash app.
+
+35
+00:02:24,410 --> 00:02:26,765
+Pretty much all the future commands will be
+
+36
+00:02:26,765 --> 00:02:29,890
+run and executed from this particular location.
+
+37
+00:02:29,890 --> 00:02:33,140
+To make sure that the application has all the dependency is installed,
+
+38
+00:02:33,140 --> 00:02:35,720
+we use a pip command which will instill
+
+39
+00:02:35,720 --> 00:02:39,715
+any requirements we have in the requirements that takes the file.
+
+40
+00:02:39,715 --> 00:02:45,050
+The last thing we need to do is to specify how to start our application.
+
+41
+00:02:45,050 --> 00:02:47,180
+For that be used CMD command,
+
+42
+00:02:47,180 --> 00:02:53,064
+which specifies or instructs Python to run the app.py application.
+
+43
+00:02:53,064 --> 00:02:54,885
+Let's exit this file,
+
+44
+00:02:54,885 --> 00:02:57,170
+and since we have the Docker file,
+
+45
+00:02:57,170 --> 00:03:00,140
+the next stage for us is to build the image.
+
+46
+00:03:00,140 --> 00:03:03,760
+For that, we're going to use the Docker commands or a Docker CLI.
+
+47
+00:03:03,760 --> 00:03:07,140
+I'm going to do a docker version command,
+
+48
+00:03:07,140 --> 00:03:09,965
+so as a prerequisite for this course,
+
+49
+00:03:09,965 --> 00:03:11,840
+you should have Docker installed as well.
+
+50
+00:03:11,840 --> 00:03:17,250
+Here we have Docker inversion 19.03.13.
+
+51
+00:03:17,510 --> 00:03:22,100
+We'll be able to issue any Docker commands locally.
+
+52
+00:03:22,100 --> 00:03:24,470
+The other thing before we push our image,
+
+53
+00:03:24,470 --> 00:03:26,470
+let's look into Docker Hub.
+
+54
+00:03:26,470 --> 00:03:32,180
+Currently, I have a Python HelloWorld repository in Docker Hub where we will push
+
+55
+00:03:32,180 --> 00:03:39,215
+our image to be available for other team members or the community to use it.
+
+56
+00:03:39,215 --> 00:03:41,800
+Currently, if I look into the tags option,
+
+57
+00:03:41,800 --> 00:03:47,415
+I can see that I have no virtuous or no image pushed to do this repository.
+
+58
+00:03:47,415 --> 00:03:50,440
+We just have a clean repository and the main aim is to
+
+59
+00:03:50,440 --> 00:03:53,580
+push our Python HelloWorld image here.
+
+60
+00:03:53,580 --> 00:03:56,475
+To do so, let's firstly build our application.
+
+61
+00:03:56,475 --> 00:03:59,380
+For that, we're going to use the docker build command.
+
+62
+00:03:59,380 --> 00:04:01,800
+We will specify tag for our image,
+
+63
+00:04:01,800 --> 00:04:06,270
+so we're just going to specify it's a Python HelloWorld application.
+
+64
+00:04:06,270 --> 00:04:13,045
+Then we're going to specify the location of where our docker file is since we are
+
+65
+00:04:13,045 --> 00:04:16,150
+in the current directory with the application Docker file
+
+66
+00:04:16,150 --> 00:04:19,720
+and opcode and dependencies will specify the dot,
+
+67
+00:04:19,720 --> 00:04:22,655
+which pretty much means the current directory.
+
+68
+00:04:22,655 --> 00:04:26,320
+Hitting Enter, what this is actually going to do is going to
+
+69
+00:04:26,320 --> 00:04:30,235
+follow all the instructions from within the Docker file.
+
+70
+00:04:30,235 --> 00:04:35,760
+First of all, it actually downloads the Python in version 3.8,
+
+71
+00:04:35,760 --> 00:04:38,020
+so pretty much downloads the base image,
+
+72
+00:04:38,020 --> 00:04:39,520
+make sure it's available.
+
+73
+00:04:39,520 --> 00:04:41,560
+This depending on the size of image,
+
+74
+00:04:41,560 --> 00:04:47,645
+depends on the base image that you need to use is going to take an amount of time.
+
+75
+00:04:47,645 --> 00:04:50,745
+Once we have our Python base image,
+
+76
+00:04:50,745 --> 00:04:53,820
+then we'll follow the other instructions in the Docker file.
+
+77
+00:04:53,820 --> 00:04:57,985
+A such we'll copy all the files into the container,
+
+78
+00:04:57,985 --> 00:04:59,739
+will set the working directory,
+
+79
+00:04:59,739 --> 00:05:01,900
+install any requirements, and of course,
+
+80
+00:05:01,900 --> 00:05:05,315
+have a CMD command to start up our application.
+
+81
+00:05:05,315 --> 00:05:07,265
+Now, we've built our command,
+
+82
+00:05:07,265 --> 00:05:09,640
+will be able to see the image locally,
+
+83
+00:05:09,640 --> 00:05:13,370
+for that we can use the docker images command.
+
+84
+00:05:13,370 --> 00:05:16,340
+Where we can see that 24 seconds ago,
+
+85
+00:05:16,340 --> 00:05:20,360
+we've created our Python HelloWorld application and it has
+
+86
+00:05:20,360 --> 00:05:25,130
+an imaged ID and the tag is going to be set to latest by default.
+
+87
+00:05:25,130 --> 00:05:29,735
+We can actually test this particular application locally.
+
+88
+00:05:29,735 --> 00:05:34,405
+There's a way to test our image by using the docker run command.
+
+89
+00:05:34,405 --> 00:05:36,255
+We're going to use a docker run command,
+
+90
+00:05:36,255 --> 00:05:38,465
+we're going to use a detached mode,
+
+91
+00:05:38,465 --> 00:05:41,090
+meaning that the container should run in the background.
+
+92
+00:05:41,090 --> 00:05:44,135
+Then we can specify the port for our application.
+
+93
+00:05:44,135 --> 00:05:46,940
+Since it's a Python Flask application,
+
+94
+00:05:46,940 --> 00:05:52,995
+we use port 5,000 and we want to expose port 5,000 on the host as well.
+
+95
+00:05:52,995 --> 00:05:55,595
+The last thing remaining to do is to specify
+
+96
+00:05:55,595 --> 00:05:59,320
+our image which is going to be Python HelloWorld.
+
+97
+00:05:59,320 --> 00:06:05,640
+If I hit Enter, this will output the long ID of our container.
+
+98
+00:06:05,640 --> 00:06:08,690
+We can do a docker ps to
+
+99
+00:06:08,690 --> 00:06:11,630
+see all of the running containers at the moment and we can see that
+
+100
+00:06:11,630 --> 00:06:17,540
+we have a Python HelloWorld container that's running python dot app insight,
+
+101
+00:06:17,540 --> 00:06:19,880
+has been created 16 seconds ago,
+
+102
+00:06:19,880 --> 00:06:25,105
+and is exposing port 5,000 on TCP on the localhost.
+
+103
+00:06:25,105 --> 00:06:33,920
+We can test that easily by going into the local browser and just typing the localhost,
+
+104
+00:06:33,920 --> 00:06:38,540
+which is going to be 127.0.0.1 on port 5,000.
+
+105
+00:06:38,540 --> 00:06:43,415
+Hit Enter and we should see the Hello World message from our application.
+
+106
+00:06:43,415 --> 00:06:47,465
+At this stage, we have built our image and tested it.
+
+107
+00:06:47,465 --> 00:06:49,895
+The next stage is to target,
+
+108
+00:06:49,895 --> 00:06:53,000
+to be able to push it to Docker Hub.
+
+109
+00:06:53,000 --> 00:06:55,460
+Let's first tag our application.
+
+110
+00:06:55,460 --> 00:07:00,285
+For that, we use the Docker tag command where we specify
+
+111
+00:07:00,285 --> 00:07:08,160
+our Python HelloWorld image
+
+112
+00:07:08,160 --> 00:07:11,440
+locally and then specify the repository
+
+113
+00:07:11,440 --> 00:07:15,835
+and the image that we'd like to push to Docker Hub, including the version.
+
+114
+00:07:15,835 --> 00:07:21,730
+A tag is a very good method to version control different releases for our application.
+
+115
+00:07:21,730 --> 00:07:25,940
+In this case, we just send the version to 1.0.0.
+
+116
+00:07:25,940 --> 00:07:27,550
+If I hit Enter,
+
+117
+00:07:27,550 --> 00:07:30,460
+that will create a new tag for our image and we
+
+118
+00:07:30,460 --> 00:07:33,745
+can visualize that by looking into our images.
+
+119
+00:07:33,745 --> 00:07:38,110
+If we type a docker images command will be able to see that we
+
+120
+00:07:38,110 --> 00:07:45,640
+have a pixelpotato/pythonhelloworld with a tag in version 1.0.0,
+
+121
+00:07:45,640 --> 00:07:48,520
+but if you observe the imaged ID,
+
+122
+00:07:48,520 --> 00:07:53,775
+they going to be the same with our locally created image as well.
+
+123
+00:07:53,775 --> 00:07:57,170
+Since we have created our tag for the image,
+
+124
+00:07:57,170 --> 00:07:59,600
+the last thing is to push it to Docker Hub.
+
+125
+00:07:59,600 --> 00:08:03,560
+For that, we use a docker push command and we just
+
+126
+00:08:03,560 --> 00:08:07,415
+specify the long tag or the longer version for our image,
+
+127
+00:08:07,415 --> 00:08:10,325
+which will specify the repository in Docker hub,
+
+128
+00:08:10,325 --> 00:08:13,010
+the image name and version.
+
+129
+00:08:13,010 --> 00:08:18,660
+If I hit Enter, I expect to see an error and this is access denied.
+
+130
+00:08:18,660 --> 00:08:22,100
+Pretty much I need to login into Docker to make sure that I have
+
+131
+00:08:22,100 --> 00:08:25,640
+the right account and access to push Docker image.
+
+132
+00:08:25,640 --> 00:08:29,805
+For this, we're going to use a docker login command, hit Enter,
+
+133
+00:08:29,805 --> 00:08:33,030
+introduce your username, in this case,
+
+134
+00:08:33,030 --> 00:08:38,080
+pixel potato for me and the password.
+
+135
+00:08:39,680 --> 00:08:42,105
+I have logged in successfully,
+
+136
+00:08:42,105 --> 00:08:48,320
+which means now if I issue the docker push command again and hit Enter,
+
+137
+00:08:48,320 --> 00:08:54,085
+it will push all of the existing layers are pretty much our image to Docker Hub.
+
+138
+00:08:54,085 --> 00:08:57,770
+Cool. We have our image already pushed.
+
+139
+00:08:57,770 --> 00:09:01,340
+The last thing is to verify if it's actually available on Docker Hub.
+
+140
+00:09:01,340 --> 00:09:05,845
+Let's go back to our browser and look into
+
+141
+00:09:05,845 --> 00:09:12,395
+our HelloWorld repository within Docker Hub and if we look at the tags,
+
+142
+00:09:12,395 --> 00:09:16,325
+we can see that we have a new tag in version 1.0.0,
+
+143
+00:09:16,325 --> 00:09:19,160
+which was pushed just a few seconds ago.
+
+144
+00:09:19,160 --> 00:09:23,630
+This is pretty much how you'll be able to package,
+
+145
+00:09:23,630 --> 00:09:27,605
+tag and push an application to Docker Hub.
+
+146
+00:09:27,605 --> 00:09:30,920
+For you to use it forever you just need to pull it
+
+147
+00:09:30,920 --> 00:09:34,475
+or just specifying the longer version of the image,
+
+148
+00:09:34,475 --> 00:09:37,820
+including the repository, image name, and tag.
+
+149
+00:09:37,820 --> 00:09:40,820
+This is how all the engineers or the community will
+
+150
+00:09:40,820 --> 00:09:45,090
+be able to use this image for their purpose.
+

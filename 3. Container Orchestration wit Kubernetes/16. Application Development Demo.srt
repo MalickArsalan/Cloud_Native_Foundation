@@ -1,0 +1,416 @@
+1
+00:00:00,000 --> 00:00:03,120
+In this demo, we will deploy an application by using
+
+2
+00:00:03,120 --> 00:00:08,310
+Kubernetes resources such as deployments, ReplicaSets, and ports.
+
+3
+00:00:08,310 --> 00:00:12,300
+Before we do that, let's clear our cluster at the moment.
+
+4
+00:00:12,300 --> 00:00:15,765
+Let's look into the deployments that we have currently running.
+
+5
+00:00:15,765 --> 00:00:19,335
+For that, we're going to do a kubectl, get deploys comment,
+
+6
+00:00:19,335 --> 00:00:24,854
+which will return that no resources or no deployments are found in the current namespace.
+
+7
+00:00:24,854 --> 00:00:27,645
+Again, each of same command with the replica sets,
+
+8
+00:00:27,645 --> 00:00:29,715
+so kubectl get RS,
+
+9
+00:00:29,715 --> 00:00:31,545
+which is short for replica set,
+
+10
+00:00:31,545 --> 00:00:34,365
+and we have no resources as expected.
+
+11
+00:00:34,365 --> 00:00:37,500
+We can even get the ports.
+
+12
+00:00:37,500 --> 00:00:41,900
+Of course we have no ports currently running within the current namespace.
+
+13
+00:00:41,900 --> 00:00:43,805
+First of all, let's try to deploy
+
+14
+00:00:43,805 --> 00:00:49,100
+a go-helloworld application by using a deployment resource.
+
+15
+00:00:49,100 --> 00:00:53,700
+For that we're going to use, a kubectl create deploy command,
+
+16
+00:00:53,700 --> 00:00:58,430
+and then we can specify the name of the deployment in this case go-helloworld,
+
+17
+00:00:58,430 --> 00:01:01,685
+and then we can specify the image.
+
+18
+00:01:01,685 --> 00:01:06,515
+Since we already have created an image for our go-helloworld application,
+
+19
+00:01:06,515 --> 00:01:09,140
+we would just paste it here,
+
+20
+00:01:09,140 --> 00:01:15,950
+which is pixelpotato in the go-helloworld image inversion 1.0.0.
+
+21
+00:01:15,950 --> 00:01:19,999
+Let's hit "Enter " and this will create a deployment.
+
+22
+00:01:19,999 --> 00:01:25,235
+We can verify that by doing a kubectl get deploy Comand,
+
+23
+00:01:25,235 --> 00:01:28,365
+which will return that we currently have a deployment,
+
+24
+00:01:28,365 --> 00:01:31,265
+which is go-helloworld and we have a container,
+
+25
+00:01:31,265 --> 00:01:33,035
+but it's not yet ready.
+
+26
+00:01:33,035 --> 00:01:34,940
+We can look into the ReplicaSet,
+
+27
+00:01:34,940 --> 00:01:37,835
+so we issue a kebectl get RS command,
+
+28
+00:01:37,835 --> 00:01:41,625
+and we see that we have a ReplicaSet.
+
+29
+00:01:41,625 --> 00:01:43,575
+We've one desired port,
+
+30
+00:01:43,575 --> 00:01:45,525
+which is already running.
+
+31
+00:01:45,525 --> 00:01:48,560
+The last thing we can do is to get our ports.
+
+32
+00:01:48,560 --> 00:01:50,615
+So a kubectl get PORTS Command,
+
+33
+00:01:50,615 --> 00:01:52,850
+which will return older running ports.
+
+34
+00:01:52,850 --> 00:01:55,145
+Currently we have a go-helloworld port,
+
+35
+00:01:55,145 --> 00:01:58,070
+which is ready and in a running state.
+
+36
+00:01:58,070 --> 00:02:02,465
+To verify that our application is actually running inside the port,
+
+37
+00:02:02,465 --> 00:02:05,270
+we'll be able to use a port-forward command.
+
+38
+00:02:05,270 --> 00:02:09,745
+This will pretty much allow us to access the container from the local host.
+
+39
+00:02:09,745 --> 00:02:15,485
+Let's port-forward, or let's connect to our application within the container.
+
+40
+00:02:15,485 --> 00:02:19,920
+For that, I'm going to use a kubectl port-forward command,
+
+41
+00:02:20,440 --> 00:02:25,955
+where we need to specify the port that we want to connect to,
+
+42
+00:02:25,955 --> 00:02:28,940
+in this case, we're just going to copy the port name,
+
+43
+00:02:28,940 --> 00:02:33,830
+which is go-helloworld and hash for the ReplicaSet and the port,
+
+44
+00:02:33,830 --> 00:02:37,745
+and then we're going to specify in the port that we'd like to connect through.
+
+45
+00:02:37,745 --> 00:02:41,045
+Since our application is running on port 6111,
+
+46
+00:02:41,045 --> 00:02:42,750
+we will specify this port,
+
+47
+00:02:42,750 --> 00:02:46,565
+and then you're going to specify the port on the host that we'd like to connect through.
+
+48
+00:02:46,565 --> 00:02:49,220
+In this case is going to be 6111 as well.
+
+49
+00:02:49,220 --> 00:02:53,370
+We can choose a different port if you choose so now. Let's hit "Enter ".
+
+50
+00:02:53,370 --> 00:02:57,560
+Here we actually how that we are listening on the local host on port
+
+51
+00:02:57,560 --> 00:03:01,985
+6111 to the container port 16111.
+
+52
+00:03:01,985 --> 00:03:07,315
+Let's verify that we can connect to the container by going to the local browser,
+
+53
+00:03:07,315 --> 00:03:11,975
+and going to the local host on port 6111.
+
+54
+00:03:11,975 --> 00:03:16,685
+As expected, we get helloworld application from our container,
+
+55
+00:03:16,685 --> 00:03:19,370
+which means the application is up and running and it
+
+56
+00:03:19,370 --> 00:03:23,060
+returns the expected message to us as well.
+
+57
+00:03:23,060 --> 00:03:26,165
+Now let's update our application.
+
+58
+00:03:26,165 --> 00:03:28,940
+So far we have an application running within a port,
+
+59
+00:03:28,940 --> 00:03:32,150
+However, let's see how the rolling out strategy is happening.
+
+60
+00:03:32,150 --> 00:03:39,460
+For that, let's edit our deployment resource wave by using the kubectl edit command,
+
+61
+00:03:39,460 --> 00:03:43,835
+where we need to specify the deployment and deployment name,
+
+62
+00:03:43,835 --> 00:03:46,490
+in this case, go-helloworld.
+
+63
+00:03:46,490 --> 00:03:50,330
+Then we can specify the format we'd like the edit to happen in.
+
+64
+00:03:50,330 --> 00:03:52,910
+In this particular case, we choose YAML,
+
+65
+00:03:52,910 --> 00:03:59,510
+so we specify to output or to format this particular deployment in YAML.
+
+66
+00:03:59,510 --> 00:04:01,415
+Once we hit "Enter",
+
+67
+00:04:01,415 --> 00:04:04,975
+let's look for our image results.
+
+68
+00:04:04,975 --> 00:04:09,605
+Here we can see that we run an image the way we specified on the command line,
+
+69
+00:04:09,605 --> 00:04:13,415
+which is go-helloworld in version 1.0.0.
+
+70
+00:04:13,415 --> 00:04:19,250
+For that, let's update our image version to 2.0.0,
+
+71
+00:04:19,250 --> 00:04:20,810
+which is running on a different port.
+
+72
+00:04:20,810 --> 00:04:22,250
+In this particular image,
+
+73
+00:04:22,250 --> 00:04:27,635
+the application is accessible through porch 6112 instead of 6111,
+
+74
+00:04:27,635 --> 00:04:29,560
+and we'll be able to verify that.
+
+75
+00:04:29,560 --> 00:04:31,880
+Since we've changed the image version,
+
+76
+00:04:31,880 --> 00:04:34,100
+let's save the deployment.
+
+77
+00:04:34,100 --> 00:04:37,915
+The thing we need to do is to verify if we have a new ReplicaSet.
+
+78
+00:04:37,915 --> 00:04:41,640
+For that we do a kubectl, get ReplicaSets.
+
+79
+00:04:41,640 --> 00:04:46,710
+You see that we have a new ReplicaSet which was created 11 seconds ago and we can see
+
+80
+00:04:46,710 --> 00:04:52,025
+that already the port is running with this particular configuration.
+
+81
+00:04:52,025 --> 00:04:55,310
+If you do a kubectl get ports,
+
+82
+00:04:55,310 --> 00:05:00,050
+we will see that we have a new port up and running for 25 seconds,
+
+83
+00:05:00,050 --> 00:05:02,525
+so it has been created quite recently.
+
+84
+00:05:02,525 --> 00:05:08,735
+Let's port-forward into our application again, using port 6111.
+
+85
+00:05:08,735 --> 00:05:16,185
+We'll just need to change the port name since we have a different port a the moment.
+
+86
+00:05:16,185 --> 00:05:19,890
+We do a kubectl port forward into the port with
+
+87
+00:05:19,890 --> 00:05:24,540
+the name go-helloworld into the port 6111.
+
+88
+00:05:24,540 --> 00:05:30,300
+We hit "Enter", and then go back to our browser. Let's refresh.
+
+89
+00:05:30,300 --> 00:05:32,175
+Here you could see that it's hanging,
+
+90
+00:05:32,175 --> 00:05:37,085
+which means that after a while is going to time out and return an error.
+
+91
+00:05:37,085 --> 00:05:41,615
+This is because we've changed the port our application is accessible through.
+
+92
+00:05:41,615 --> 00:05:43,130
+Let's cancel this request.
+
+93
+00:05:43,130 --> 00:05:46,835
+We can actually see that we failed to connect to our port,
+
+94
+00:05:46,835 --> 00:05:49,225
+since we were trying to go in a different port.
+
+95
+00:05:49,225 --> 00:05:55,680
+We'll be able to connect our port by changing the port to 6112.
+
+96
+00:05:55,680 --> 00:05:58,655
+If we hit "Enter" and go back to
+
+97
+00:05:58,655 --> 00:06:05,130
+our browser and type or access the local host on port 6112,
+
+98
+00:06:05,150 --> 00:06:08,525
+we will have our helloworld message,
+
+99
+00:06:08,525 --> 00:06:10,415
+which pretty much is
+
+100
+00:06:10,415 --> 00:06:14,435
+the message that we expect from our application but on a different port,
+
+101
+00:06:14,435 --> 00:06:17,005
+since we're using a different image version.
+
+102
+00:06:17,005 --> 00:06:22,400
+This is pretty much how you are able to deploy an application, but more importantly,
+
+103
+00:06:22,400 --> 00:06:24,635
+how to have rolling updates to the image
+
+104
+00:06:24,635 --> 00:06:28,950
+and change different behaviors for our application.
+

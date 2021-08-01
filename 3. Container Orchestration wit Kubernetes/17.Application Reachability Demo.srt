@@ -1,0 +1,244 @@
+1
+00:00:00,000 --> 00:00:05,850
+In this demo, we will access an application by using a service Kubernetes resource.
+
+2
+00:00:05,850 --> 00:00:09,180
+For that, we can expose a deployment that we currently have
+
+3
+00:00:09,180 --> 00:00:13,830
+running on a particular port and access it from within the cluster.
+
+4
+00:00:13,830 --> 00:00:18,585
+First, let's look into the deployments that we currently have running within the cluster.
+
+5
+00:00:18,585 --> 00:00:22,380
+We're going to do a kubectl get deploy command.
+
+6
+00:00:22,380 --> 00:00:28,275
+Currently, we have a go-helloworld application which has one pod which is up and running.
+
+7
+00:00:28,275 --> 00:00:32,565
+It can even verify the pods by doing the kubectl get pod command.
+
+8
+00:00:32,565 --> 00:00:35,955
+We have one pod for go-helloworld application.
+
+9
+00:00:35,955 --> 00:00:37,745
+Before we deploy a service,
+
+10
+00:00:37,745 --> 00:00:41,815
+let's look into the current services that we have within our namespace.
+
+11
+00:00:41,815 --> 00:00:45,150
+For that, we're going to use a kubectl get svc,
+
+12
+00:00:45,150 --> 00:00:48,735
+which is short for services, then hit Enter.
+
+13
+00:00:48,735 --> 00:00:53,675
+We will have one service which already has been predefined for this cluster,
+
+14
+00:00:53,675 --> 00:00:55,840
+which is the Kubernetes service.
+
+15
+00:00:55,840 --> 00:01:01,240
+This is a predefined service which comes when the cluster is bootstrap initially.
+
+16
+00:01:01,240 --> 00:01:06,705
+Let's expose our deployment through a service by using the kubectl expose command.
+
+17
+00:01:06,705 --> 00:01:15,225
+Type kubectl expose, then we want to expose a deployment we've name, go-helloworld.
+
+18
+00:01:15,225 --> 00:01:20,120
+We need to specify the port and the target port as well.
+
+19
+00:01:20,120 --> 00:01:25,250
+The port will be the port that the service should serve on.
+
+20
+00:01:25,250 --> 00:01:27,980
+We say that this service should serve on,
+
+21
+00:01:27,980 --> 00:01:30,605
+for example, port 6112.
+
+22
+00:01:30,605 --> 00:01:33,185
+We can specify the target port,
+
+23
+00:01:33,185 --> 00:01:37,585
+which will specify the port that the application is listening to.
+
+24
+00:01:37,585 --> 00:01:42,335
+In this case, the application is listening to port 6112 as well.
+
+25
+00:01:42,335 --> 00:01:48,845
+We'll specify that for the target port and set it to a 6112.
+
+26
+00:01:48,845 --> 00:01:54,155
+If we hit Enter, we can see that a surface resource has been created.
+
+27
+00:01:54,155 --> 00:01:59,335
+We can verify that by doing a kubectl get svc command.
+
+28
+00:01:59,335 --> 00:02:04,730
+We can see that we have a new service which has the type ClusterIP,
+
+29
+00:02:04,730 --> 00:02:08,345
+which is the default type for a service if we don't specify one,
+
+30
+00:02:08,345 --> 00:02:11,510
+then we have the actual ClusterIP for our application.
+
+31
+00:02:11,510 --> 00:02:14,810
+Instead of accessing the pod independently,
+
+32
+00:02:14,810 --> 00:02:18,665
+we'll be able to access it by using the service IP.
+
+33
+00:02:18,665 --> 00:02:23,955
+In this case, 10.105.166.228.
+
+34
+00:02:23,955 --> 00:02:27,035
+Then we have the port the service is serving on.
+
+35
+00:02:27,035 --> 00:02:31,835
+In this case, it is going to serve on port 6112 using TCP,
+
+36
+00:02:31,835 --> 00:02:36,050
+which is the default network protocol for a service.
+
+37
+00:02:36,050 --> 00:02:39,475
+To verify that we can access our application,
+
+38
+00:02:39,475 --> 00:02:43,575
+let's first create a pod, a test pod.
+
+39
+00:02:43,575 --> 00:02:45,530
+Since we're using a Cluster IP,
+
+40
+00:02:45,530 --> 00:02:47,690
+that means that this particular IP is going to
+
+41
+00:02:47,690 --> 00:02:50,545
+be accessible only from within the cluster.
+
+42
+00:02:50,545 --> 00:02:55,430
+We need to access it from a workload which is within the cluster as well.
+
+43
+00:02:55,430 --> 00:03:03,650
+For that, I'm going to use a kubectl run command where we provide the name of the pod,
+
+44
+00:03:03,650 --> 00:03:07,550
+in this case, it's going to be a random name we created in the default namespace.
+
+45
+00:03:07,550 --> 00:03:11,915
+We're going to learn more about namespaces later on in this lesson.
+
+46
+00:03:11,915 --> 00:03:17,480
+Then we specify that we want to remove the pod once we exit from it.
+
+47
+00:03:17,480 --> 00:03:19,790
+We have an interactive shell as well.
+
+48
+00:03:19,790 --> 00:03:22,280
+We specify that this pod should run
+
+49
+00:03:22,280 --> 00:03:26,890
+the alpine image and then we'll be able to associate into it.
+
+50
+00:03:26,890 --> 00:03:29,390
+If we hit Enter to this command,
+
+51
+00:03:29,390 --> 00:03:33,980
+this will create a pod and provide us with an interactive shell straightaway.
+
+52
+00:03:33,980 --> 00:03:37,615
+The only thing we need to do is to access our workload.
+
+53
+00:03:37,615 --> 00:03:39,910
+For that, we use wget,
+
+54
+00:03:39,910 --> 00:03:43,840
+which is the equivalent of curl within the Bash commands.
+
+55
+00:03:43,840 --> 00:03:46,340
+We're going to have a quiet output.
+
+56
+00:03:46,340 --> 00:03:51,620
+We want the output to be presented into the current view.
+
+57
+00:03:51,620 --> 00:03:54,380
+The only thing we need to do is to provide
+
+58
+00:03:54,380 --> 00:03:58,055
+the ClusterIP and then we need to specify the port as well,
+
+59
+00:03:58,055 --> 00:04:01,040
+which is serving on, which is 6112.
+
+60
+00:04:01,040 --> 00:04:06,805
+If we hit Enter, we'll be able to receive the hello world message from our application.
+
+61
+00:04:06,805 --> 00:04:13,020
+This is pretty much how can we interact with our application by using a service IP.
+

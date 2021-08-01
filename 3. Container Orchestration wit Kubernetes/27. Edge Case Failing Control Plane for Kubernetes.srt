@@ -1,0 +1,104 @@
+1
+00:00:00,000 --> 00:00:03,795
+So far, you have learned that Kubernetes has a couple of methods
+
+2
+00:00:03,795 --> 00:00:08,175
+to handle failure any issue with application is healthy and accessible.
+
+3
+00:00:08,175 --> 00:00:12,480
+This is achieved through deployments with replica sets as it makes sure
+
+4
+00:00:12,480 --> 00:00:16,920
+that the desired amount of replicas are up and running at all times.
+
+5
+00:00:16,920 --> 00:00:20,100
+Readiness probes, which will ensure that traffic is
+
+6
+00:00:20,100 --> 00:00:23,505
+routed to pods that are ready to handle the requests.
+
+7
+00:00:23,505 --> 00:00:26,250
+Liveness probes that would check if the pod is
+
+8
+00:00:26,250 --> 00:00:29,850
+running and restart it if it's in an error state.
+
+9
+00:00:29,850 --> 00:00:35,875
+Services, which provide one entry point to all available part of an application.
+
+10
+00:00:35,875 --> 00:00:38,225
+With these resources properly configured,
+
+11
+00:00:38,225 --> 00:00:41,090
+the application will be in a healthy state unless
+
+12
+00:00:41,090 --> 00:00:45,205
+failure is encountered at the networking or DNS level.
+
+13
+00:00:45,205 --> 00:00:48,620
+Additionally, you have learned that the control plane is
+
+14
+00:00:48,620 --> 00:00:52,505
+composed of all elements that make global decision within the cluster,
+
+15
+00:00:52,505 --> 00:00:57,275
+while the data plane will host the workloads for multiple applications.
+
+16
+00:00:57,275 --> 00:01:00,500
+However, when it comes to failure scenarios,
+
+17
+00:01:00,500 --> 00:01:03,590
+one noteworthy thing is that the application is still going to
+
+18
+00:01:03,590 --> 00:01:07,205
+be up and running even if the Kubernetes control plane is down.
+
+19
+00:01:07,205 --> 00:01:11,805
+In this case, if one or all control plane components are compromised,
+
+20
+00:01:11,805 --> 00:01:16,075
+the traffic will still be routed to the application with no interference.
+
+21
+00:01:16,075 --> 00:01:20,330
+The downside of the control plane failure is that no new workloads can be
+
+22
+00:01:20,330 --> 00:01:24,880
+deployed and no changes can be applied to existing workloads.
+
+23
+00:01:24,880 --> 00:01:27,710
+The engineering team will still need to focus on
+
+24
+00:01:27,710 --> 00:01:30,665
+recovering the control plane as a critical priority.
+
+25
+00:01:30,665 --> 00:01:33,455
+However, they should not worry about recovering
+
+26
+00:01:33,455 --> 00:01:38,340
+applications as this will be intact and still handling requests.
+
