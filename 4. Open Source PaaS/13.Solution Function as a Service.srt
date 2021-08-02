@@ -1,0 +1,36 @@
+1
+00:00:00,000 --> 00:00:03,090
+For a newspaper, the readers are more focused on
+
+2
+00:00:03,090 --> 00:00:06,180
+the news content rather than managing their accounts.
+
+3
+00:00:06,180 --> 00:00:11,249
+As such, we can assume that handling requests to deliver the content have priority
+
+4
+00:00:11,249 --> 00:00:16,990
+and that the account management is a secondary service that should be invoked on demand.
+
+5
+00:00:16,990 --> 00:00:18,540
+With a past solution,
+
+6
+00:00:18,540 --> 00:00:24,255
+we will have at least one replica of the application up and running at all time.
+
+7
+00:00:24,255 --> 00:00:27,390
+This is not cost-efficient.
+
+8
+00:00:27,390 --> 00:00:33,480
+FSL Frank suits this case better as the service will be invoked on demand only.
+
+9
+00:00:33,480 --> 00:00:39,640
+As a result, this is a more suitable solution as it's more cost-effective.
+

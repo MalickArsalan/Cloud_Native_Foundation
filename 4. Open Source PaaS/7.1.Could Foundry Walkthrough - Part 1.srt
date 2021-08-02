@@ -1,0 +1,496 @@
+1
+00:00:00,000 --> 00:00:01,380
+In the previous lesson,
+
+2
+00:00:01,380 --> 00:00:04,695
+we have learned that Cloud Foundry is an open-source PaaS.
+
+3
+00:00:04,695 --> 00:00:08,970
+That means that we'll be able to install it on any available infrastructure,
+
+4
+00:00:08,970 --> 00:00:12,510
+such as on-premises or public Cloud providers.
+
+5
+00:00:12,510 --> 00:00:18,630
+In this demo, we will see how can we use Cloud Foundry to deploy an application.
+
+6
+00:00:18,630 --> 00:00:20,415
+However, before we do that,
+
+7
+00:00:20,415 --> 00:00:24,435
+let's explore an offering of Cloud Foundry from SUSE.
+
+8
+00:00:24,435 --> 00:00:27,360
+In this view, we have the straightest console
+
+9
+00:00:27,360 --> 00:00:30,975
+which is a SUSE offering that runs Cloud Foundry.
+
+10
+00:00:30,975 --> 00:00:33,930
+This is the Developer Sandbox,
+
+11
+00:00:33,930 --> 00:00:38,835
+which we will be able to interact with to deploy an actual application.
+
+12
+00:00:38,835 --> 00:00:44,780
+I have created an account and once you're logged in to the console,
+
+13
+00:00:44,780 --> 00:00:46,415
+this is pretty much the VOC.
+
+14
+00:00:46,415 --> 00:00:49,070
+At the moment, we have done no actions and we
+
+15
+00:00:49,070 --> 00:00:52,355
+performed no operations within this console.
+
+16
+00:00:52,355 --> 00:00:55,130
+Let's go for some of the main functionalities
+
+17
+00:00:55,130 --> 00:00:58,000
+that these developer console is offering us.
+
+18
+00:00:58,000 --> 00:01:01,110
+If you look onto the left panel,
+
+19
+00:01:01,110 --> 00:01:07,150
+we'll see a list of operations or functionalities that we'll be able to use.
+
+20
+00:01:07,150 --> 00:01:09,720
+The first one is applications.
+
+21
+00:01:09,720 --> 00:01:11,570
+If you click on it, currently,
+
+22
+00:01:11,570 --> 00:01:15,970
+we said we have no obligations up and running in this particular console.
+
+23
+00:01:15,970 --> 00:01:18,169
+When we'll be able to create an application,
+
+24
+00:01:18,169 --> 00:01:20,975
+we'll be able to examine it from this view.
+
+25
+00:01:20,975 --> 00:01:25,385
+If I click on the "Marketplace," this will provide us with
+
+26
+00:01:25,385 --> 00:01:30,670
+a list of all the services we will be able to integrate with our application.
+
+27
+00:01:30,670 --> 00:01:35,180
+For example, here we have quite a rich collection of databases.
+
+28
+00:01:35,180 --> 00:01:39,475
+For example, we'll be able to choose from Mariadb, Mongodb,
+
+29
+00:01:39,475 --> 00:01:43,150
+Postgresql, Rabbitmq, and Redis,
+
+30
+00:01:43,150 --> 00:01:45,065
+and we'll be able to integrate those.
+
+31
+00:01:45,065 --> 00:01:48,800
+If I click on "Services," this will allow us to
+
+32
+00:01:48,800 --> 00:01:52,975
+view any services that we currently integrated with our application.
+
+33
+00:01:52,975 --> 00:01:54,890
+Currently, these view is empty.
+
+34
+00:01:54,890 --> 00:01:59,254
+However, if you choose a particular database to integrate with your application,
+
+35
+00:01:59,254 --> 00:02:02,170
+you'll be able to visualize this here.
+
+36
+00:02:02,170 --> 00:02:05,975
+The next step we want to click is actual Cloud Foundry.
+
+37
+00:02:05,975 --> 00:02:10,385
+This will provide us with a more insightful view of what Cloud Foundry
+
+38
+00:02:10,385 --> 00:02:14,990
+offers to us and how can manage our applications using Cloud Foundry.
+
+39
+00:02:14,990 --> 00:02:18,105
+In the first view, we're going to see the summary.
+
+40
+00:02:18,105 --> 00:02:20,210
+Here we'll be able to see for example,
+
+41
+00:02:20,210 --> 00:02:21,665
+the Cloud Foundry version.
+
+42
+00:02:21,665 --> 00:02:26,215
+Here is going to be in version 2.153.0.
+
+43
+00:02:26,215 --> 00:02:30,170
+We'll be able to see our instance address or
+
+44
+00:02:30,170 --> 00:02:34,640
+the endpoint that we can access the Cloud Foundry API.
+
+45
+00:02:34,640 --> 00:02:39,295
+You'll see the amount of applications that are running currently using Cloud Foundry.
+
+46
+00:02:39,295 --> 00:02:42,110
+Currently, there's going to be zero applications and we
+
+47
+00:02:42,110 --> 00:02:45,415
+can see the works and the used memory as well.
+
+48
+00:02:45,415 --> 00:02:49,610
+If you click on the "Organizations," this is going to provide us with
+
+49
+00:02:49,610 --> 00:02:53,780
+a view of how can you manage multi-tenancy using Cloud Foundry.
+
+50
+00:02:53,780 --> 00:03:01,680
+For example, my current account is a Manager and currently I'm running zero applications,
+
+51
+00:03:01,680 --> 00:03:07,295
+well actually, I have 10 instances that I'm eligible to deploy with these test account.
+
+52
+00:03:07,295 --> 00:03:09,340
+As well with an organization,
+
+53
+00:03:09,340 --> 00:03:12,700
+we can limit the amount of resources that we can consume.
+
+54
+00:03:12,700 --> 00:03:14,530
+For this particular organization,
+
+55
+00:03:14,530 --> 00:03:16,960
+we have only 2.5 gigabytes.
+
+56
+00:03:16,960 --> 00:03:20,500
+We'll be able to click on this particular user and we'll be able
+
+57
+00:03:20,500 --> 00:03:24,400
+to see a more insightful view for our organization.
+
+58
+00:03:24,400 --> 00:03:27,290
+Again, we have a summary where we have four spaces,
+
+59
+00:03:27,290 --> 00:03:29,860
+these are going to be our development stages.
+
+60
+00:03:29,860 --> 00:03:31,660
+The amount of applications,
+
+61
+00:03:31,660 --> 00:03:32,950
+the amount of fruits,
+
+62
+00:03:32,950 --> 00:03:34,925
+or up instances running.
+
+63
+00:03:34,925 --> 00:03:37,585
+If you click on the "Spaces," these are going to provide
+
+64
+00:03:37,585 --> 00:03:40,520
+us with the development stages that we currently have.
+
+65
+00:03:40,520 --> 00:03:44,380
+Here we can have Sandbox or dev, staging,
+
+66
+00:03:44,380 --> 00:03:48,235
+production and currently in this view have dev,
+
+67
+00:03:48,235 --> 00:03:50,810
+prod, samples, and test.
+
+68
+00:03:50,810 --> 00:03:52,650
+We can view all users.
+
+69
+00:03:52,650 --> 00:03:53,670
+If you click on the users,
+
+70
+00:03:53,670 --> 00:03:56,105
+we'll be able to visualize all of the users and
+
+71
+00:03:56,105 --> 00:03:59,045
+the axis that's provisioned for that particular user.
+
+72
+00:03:59,045 --> 00:04:03,545
+In this case, my account is provisioned with a manager role
+
+73
+00:04:03,545 --> 00:04:08,615
+which has privilege or a privilege access within this console.
+
+74
+00:04:08,615 --> 00:04:12,665
+The last thing I'd like to showcase is the Quota for an organization.
+
+75
+00:04:12,665 --> 00:04:16,610
+If you click on the "Quota," you'll be able to see the amount of memory
+
+76
+00:04:16,610 --> 00:04:20,795
+that we are allowed to use with this particular organization,
+
+77
+00:04:20,795 --> 00:04:23,315
+the amount of applications that we can deploy,
+
+78
+00:04:23,315 --> 00:04:26,060
+amount of services, routes, and so forth.
+
+79
+00:04:26,060 --> 00:04:29,870
+All of this information we'll be able to manage from this particular view.
+
+80
+00:04:29,870 --> 00:04:36,350
+Now let's go back to Cloud Foundry and let's go from organizations to our cells.
+
+81
+00:04:36,350 --> 00:04:42,125
+Now, cells are used to manage containerized applications within Cloud Foundry.
+
+82
+00:04:42,125 --> 00:04:44,000
+These are called Diego Cells.
+
+83
+00:04:44,000 --> 00:04:46,369
+They'll make sure to schedule with the application,
+
+84
+00:04:46,369 --> 00:04:51,070
+search that it's always running and available to our end users.
+
+85
+00:04:51,070 --> 00:04:55,055
+In the Routes, which is going to be the next service from Cloud Foundry,
+
+86
+00:04:55,055 --> 00:04:57,770
+we'll be able to see any endpoints which have
+
+87
+00:04:57,770 --> 00:05:00,725
+been provisioned for our application to reach it.
+
+88
+00:05:00,725 --> 00:05:05,365
+Currently, we have no routes provisioned since we have no applications deployed.
+
+89
+00:05:05,365 --> 00:05:09,620
+The following functionality is going to be the feature flags that we can
+
+90
+00:05:09,620 --> 00:05:14,635
+use to either enable or disable some functionalities using Cloud Foundry.
+
+91
+00:05:14,635 --> 00:05:21,170
+The Build Packs will provide the base framework we can use to build our application.
+
+92
+00:05:21,170 --> 00:05:25,040
+For example, if you use a Java application or Python application,
+
+93
+00:05:25,040 --> 00:05:28,405
+you'll be able to use a Build Pack package for that.
+
+94
+00:05:28,405 --> 00:05:32,085
+Just as a reminder, Build Packs doesn't use any docker files.
+
+95
+00:05:32,085 --> 00:05:36,935
+As such, we will be able to create an OCI compliant image by using
+
+96
+00:05:36,935 --> 00:05:44,025
+best practices and Build Packs can do that with no dependencies or configuration files.
+
+97
+00:05:44,025 --> 00:05:47,060
+In this year, for example, we see some of the predefined Build packs,
+
+98
+00:05:47,060 --> 00:05:51,005
+such as for a huge applications for Nginx,
+
+99
+00:05:51,005 --> 00:05:56,350
+for Java, Ruby, and many more and we'll be able to explore all of them in this view.
+
+100
+00:05:56,350 --> 00:05:58,930
+The stack functionality, if you click on it,
+
+101
+00:05:58,930 --> 00:06:02,875
+it will pretty much provisions something similar to an operating system.
+
+102
+00:06:02,875 --> 00:06:07,340
+Here, for example, we have a operating system which is based on Linux,
+
+103
+00:06:07,340 --> 00:06:10,385
+but with Cloud Foundry installed already in it.
+
+104
+00:06:10,385 --> 00:06:14,585
+We have a SUSE Linux Enterprise operating system,
+
+105
+00:06:14,585 --> 00:06:17,380
+in Version 12 and Version 15.
+
+106
+00:06:17,380 --> 00:06:21,515
+The next thing that I would like to showcase is the security groups.
+
+107
+00:06:21,515 --> 00:06:26,450
+Here we have something which allows us or tells the application to
+
+108
+00:06:26,450 --> 00:06:31,760
+reach endpoints and it will specify the protocol such as TCP or UDP,
+
+109
+00:06:31,760 --> 00:06:35,390
+the IP of the service and the port.
+
+110
+00:06:35,390 --> 00:06:42,610
+You'll be able to explore some of the pre-configured endpoints in the Service Groups.
+
+111
+00:06:42,610 --> 00:06:44,460
+The organization quotas.
+
+112
+00:06:44,460 --> 00:06:46,820
+These are pretty much all of the organizations that have been
+
+113
+00:06:46,820 --> 00:06:49,820
+provisioned by default and for example,
+
+114
+00:06:49,820 --> 00:06:52,970
+if I click on "Sandbox," we'll be able to see the same view we've seen
+
+115
+00:06:52,970 --> 00:06:57,205
+previously where it specifies the amount of memory we can use,
+
+116
+00:06:57,205 --> 00:06:59,880
+the amount of applications we can deploy and so forth.
+
+117
+00:06:59,880 --> 00:07:03,785
+Let's go back. The last thing I would like to showcase are the events.
+
+118
+00:07:03,785 --> 00:07:08,000
+The events are aggregated for the entire Cloud Foundry application.
+
+119
+00:07:08,000 --> 00:07:12,160
+So you'll be able to see if some of application were removed or
+
+120
+00:07:12,160 --> 00:07:14,795
+scheduled and so forth and you'll be able to
+
+121
+00:07:14,795 --> 00:07:17,890
+collectively see all of these events in this view.
+
+122
+00:07:17,890 --> 00:07:21,860
+With this particular offering of Cloud Foundry from SUSE,
+
+123
+00:07:21,860 --> 00:07:27,170
+we will further use to deploy an application such as Python HelloWorld,
+
+124
+00:07:27,170 --> 00:07:32,610
+and see how we can deploy and access it with minimal engineering effort.
+
