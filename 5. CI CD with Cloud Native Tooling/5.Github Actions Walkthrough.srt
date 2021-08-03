@@ -1,0 +1,436 @@
+1
+00:00:00,000 --> 00:00:03,315
+In this demo, we will use GitHub actions to
+
+2
+00:00:03,315 --> 00:00:06,960
+run some test for our Python-Hello World application.
+
+3
+00:00:06,960 --> 00:00:13,725
+First of all, let's look into our application which resides under the app.py file.
+
+4
+00:00:13,725 --> 00:00:16,050
+If you click on it and look inside,
+
+5
+00:00:16,050 --> 00:00:21,735
+we have a simple Python Flask application that presents us with a couple of endpoints,
+
+6
+00:00:21,735 --> 00:00:25,124
+such as: status, metrics,
+
+7
+00:00:25,124 --> 00:00:29,760
+and the main homepage which will return a "Hello World" message.
+
+8
+00:00:29,760 --> 00:00:35,880
+This application is running on port 8080 on the local host and when the container starts.
+
+9
+00:00:35,880 --> 00:00:39,345
+This application specifically has a set of
+
+10
+00:00:39,345 --> 00:00:44,060
+requirements which I'm going to be residing under the requirements that takes the file.
+
+11
+00:00:44,060 --> 00:00:46,400
+If we look inside, we will see some of
+
+12
+00:00:46,400 --> 00:00:50,955
+the dependencies the application will need, such as Flask.
+
+13
+00:00:50,955 --> 00:00:53,960
+Of course, we'll need pytest as well since we intend to
+
+14
+00:00:53,960 --> 00:00:57,455
+run some pytests on this particular application.
+
+15
+00:00:57,455 --> 00:01:00,415
+Let's go back to our main repository.
+
+16
+00:01:00,415 --> 00:01:03,195
+To implement any testing with pytests,
+
+17
+00:01:03,195 --> 00:01:07,880
+we'll actually require a suite of pytest being written beforehand.
+
+18
+00:01:07,880 --> 00:01:13,040
+In current case, we have a test_with_pytest.py file,
+
+19
+00:01:13,040 --> 00:01:17,145
+so pretty much of this will have all our tests if we look inside.
+
+20
+00:01:17,145 --> 00:01:21,440
+Currently, we have a mock test which will always return true,
+
+21
+00:01:21,440 --> 00:01:26,635
+so we have one test that will always succeed or will pass our test.
+
+22
+00:01:26,635 --> 00:01:33,010
+Now we'd like to run this particular pytest by using GitHub actions.
+
+23
+00:01:33,010 --> 00:01:38,235
+For that, let's go to our main directory which is python-helloworld.
+
+24
+00:01:38,235 --> 00:01:41,150
+We have learned that the GitHub actions are going to be
+
+25
+00:01:41,150 --> 00:01:45,835
+stored under the.github/workflows directory.
+
+26
+00:01:45,835 --> 00:01:48,375
+Let's click on it and look inside.
+
+27
+00:01:48,375 --> 00:01:49,910
+For this particular application,
+
+28
+00:01:49,910 --> 00:01:54,695
+we have a couple of GitHub actions being created.
+
+29
+00:01:54,695 --> 00:01:58,475
+Let's see how can we construct a GitHub action for our pytest.
+
+30
+00:01:58,475 --> 00:02:01,840
+This is going to be stored under the pytest.yml file.
+
+31
+00:02:01,840 --> 00:02:05,020
+Let's go for every single command and understand what it actually
+
+32
+00:02:05,020 --> 00:02:08,965
+does to run this particular GitHub action.
+
+33
+00:02:08,965 --> 00:02:13,515
+The first thing we do, we name our action to Pytest,
+
+34
+00:02:13,515 --> 00:02:16,630
+then we say when this particular action should run.
+
+35
+00:02:16,630 --> 00:02:19,345
+In this particular case, we say this action
+
+36
+00:02:19,345 --> 00:02:22,915
+should run on every push to our Git repository.
+
+37
+00:02:22,915 --> 00:02:25,100
+It's pretty much if you have a new commit,
+
+38
+00:02:25,100 --> 00:02:27,730
+and you commit and merge quite importantly,
+
+39
+00:02:27,730 --> 00:02:30,760
+this will run the GitHub action.
+
+40
+00:02:30,760 --> 00:02:33,110
+Then we have our Job sections,
+
+41
+00:02:33,110 --> 00:02:38,065
+and here we can specify the steps that we'd like to run in order to run our pytest.
+
+42
+00:02:38,065 --> 00:02:41,050
+First of all, we need to specify our base image or
+
+43
+00:02:41,050 --> 00:02:44,495
+the operating system that we're going to use to run our test.
+
+44
+00:02:44,495 --> 00:02:47,910
+In this case, we choose "Ubuntu-latest".
+
+45
+00:02:47,910 --> 00:02:51,050
+However, we have a strategy to run
+
+46
+00:02:51,050 --> 00:02:55,190
+our application or run our test on different Python versions,
+
+47
+00:02:55,190 --> 00:02:58,650
+such as: 2.7, 3.5,
+
+48
+00:02:58,650 --> 00:03:02,520
+3.6, 3.7, and 3.8.
+
+49
+00:03:02,520 --> 00:03:07,870
+The Steps section will contain the instructions to actually run the pytest.
+
+50
+00:03:07,870 --> 00:03:10,910
+The first thing we do is to check out our code.
+
+51
+00:03:10,910 --> 00:03:16,705
+Pretty much we'll take the current code with the new commit and reference it.
+
+52
+00:03:16,705 --> 00:03:20,660
+The second thing we do is to actually install Python,
+
+53
+00:03:20,660 --> 00:03:24,920
+I'm making sure that we have Python installed within our job.
+
+54
+00:03:24,920 --> 00:03:27,995
+For that, we use the setup-python action,
+
+55
+00:03:27,995 --> 00:03:30,585
+and then we have a for-loop to
+
+56
+00:03:30,585 --> 00:03:34,880
+implement or to set-up Python for every single version that we have.
+
+57
+00:03:34,880 --> 00:03:36,725
+Once we have set-up Python,
+
+58
+00:03:36,725 --> 00:03:41,230
+we need to make sure that we have all the dependencies necessary to run our application.
+
+59
+00:03:41,230 --> 00:03:43,330
+For example, we will update pip,
+
+60
+00:03:43,330 --> 00:03:46,760
+making sure that we have the latest version of our libraries.
+
+61
+00:03:46,760 --> 00:03:50,485
+Then we'll install pytest using pip.
+
+62
+00:03:50,485 --> 00:03:53,690
+The other thing we can do is to install the requirements
+
+63
+00:03:53,690 --> 00:03:57,880
+specified in the requirements that takes the file if that file exists.
+
+64
+00:03:57,880 --> 00:04:00,105
+After we install our dependencies,
+
+65
+00:04:00,105 --> 00:04:02,625
+we'll be able to run our pytest.
+
+66
+00:04:02,625 --> 00:04:05,915
+For that is just enough for us to invoke pytest,
+
+67
+00:04:05,915 --> 00:04:12,015
+it will identify the file with our tests and execute them.
+
+68
+00:04:12,015 --> 00:04:15,835
+Now let's actually execute this particular action.
+
+69
+00:04:15,835 --> 00:04:18,825
+I'm going back to our python-helloworld.
+
+70
+00:04:18,825 --> 00:04:21,890
+As mentioned, our action is going to be executed or
+
+71
+00:04:21,890 --> 00:04:25,355
+triggered with every commit to the master branch.
+
+72
+00:04:25,355 --> 00:04:28,340
+For that, I'm just going to edit the Read Me
+
+73
+00:04:28,340 --> 00:04:33,210
+page and I'm just going to add a comment saying,
+
+74
+00:04:33,210 --> 00:04:35,520
+this is a test.
+
+75
+00:04:35,520 --> 00:04:41,265
+I'm just going to commit this particular message to the Git branch.
+
+76
+00:04:41,265 --> 00:04:42,900
+We have a new commit,
+
+77
+00:04:42,900 --> 00:04:46,260
+that means that the GitHub actions will be triggered.
+
+78
+00:04:46,260 --> 00:04:48,110
+To see this particular event,
+
+79
+00:04:48,110 --> 00:04:52,945
+we can look into the Actions tab within GitHub. Let's click it.
+
+80
+00:04:52,945 --> 00:04:59,060
+In this view, we have a selection of GitHub actions we have set-up for this repository.
+
+81
+00:04:59,060 --> 00:05:02,330
+The one we actually are interested in is the Pytest,
+
+82
+00:05:02,330 --> 00:05:03,895
+so we're going to select that.
+
+83
+00:05:03,895 --> 00:05:08,359
+Then we'll be able to see some of the latest commits for our repository.
+
+84
+00:05:08,359 --> 00:05:12,745
+However, the one we are interested in is the commit with Update README,
+
+85
+00:05:12,745 --> 00:05:16,700
+since this will trigger the latest run of the action.
+
+86
+00:05:16,700 --> 00:05:18,920
+Let's click on the Update README,
+
+87
+00:05:18,920 --> 00:05:20,480
+which is the latest commit.
+
+88
+00:05:20,480 --> 00:05:25,585
+Here, we'll be able to see a summary of the GitHub action.
+
+89
+00:05:25,585 --> 00:05:27,530
+As such, you already can see
+
+90
+00:05:27,530 --> 00:05:31,610
+all the Python versions that we've intended to test our pytests.
+
+91
+00:05:31,610 --> 00:05:33,920
+We're going to have the version 2.7,
+
+92
+00:05:33,920 --> 00:05:38,665
+3.5, 3.6, 3.7, and 3.8.
+
+93
+00:05:38,665 --> 00:05:41,730
+Let's click on the build 3.8.
+
+94
+00:05:41,730 --> 00:05:45,680
+This will present us with a more verbose output of
+
+95
+00:05:45,680 --> 00:05:50,280
+all the events or commands that actually run.
+
+96
+00:05:50,280 --> 00:05:53,360
+We'll be able to see our checkout actions
+
+97
+00:05:53,360 --> 00:05:56,480
+which checked out to the entire code and if we expand,
+
+98
+00:05:56,480 --> 00:05:58,295
+for example, the Set up Python,
+
+99
+00:05:58,295 --> 00:06:02,395
+you'll be able to see how Python was installed on this particular job.
+
+100
+00:06:02,395 --> 00:06:05,010
+If you expand the Install Dependencies,
+
+101
+00:06:05,010 --> 00:06:08,630
+this will actually upgrade pip as intended.
+
+102
+00:06:08,630 --> 00:06:15,380
+However, it will install all the packages or dependencies in our requirements of txt,
+
+103
+00:06:15,380 --> 00:06:19,980
+including Flask and pytest as well.
+
+104
+00:06:19,980 --> 00:06:23,970
+To actually see the output of our pytest,
+
+105
+00:06:23,970 --> 00:06:26,670
+we have this Test with pytest output.
+
+106
+00:06:26,670 --> 00:06:28,335
+If we just expand that,
+
+107
+00:06:28,335 --> 00:06:33,795
+we'll be able to see that our test actually run and it passed as intended.
+
+108
+00:06:33,795 --> 00:06:39,035
+This is pretty much how you'd be able to run any test or more importantly,
+
+109
+00:06:39,035 --> 00:06:43,890
+how we can automate any tests with GitHub actions.
+

@@ -27,3 +27,16 @@ FaaS
 Anynines
 buildpacks
 manifest.yml
+pytest
+pylint
+python-helloworld
+pytests
+yml
+setup-buildx
+setup-qemu
+yaml
+argocd
+argocd-server-nodeport.yaml
+Kustomize
+nginx
+Nodeport

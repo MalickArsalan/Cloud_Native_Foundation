@@ -1,0 +1,484 @@
+1
+00:00:00,000 --> 00:00:03,855
+In this demo, we will install Argo CD into
+
+2
+00:00:03,855 --> 00:00:08,445
+our Key FS Cluster and access it through the UI.
+
+3
+00:00:08,445 --> 00:00:09,990
+First of all, currently,
+
+4
+00:00:09,990 --> 00:00:15,345
+I'm inside the vagrant box and I can interact with a cluster by using kubesctl.
+
+5
+00:00:15,345 --> 00:00:19,410
+For that, I'm just going to do a kubectl get node.
+
+6
+00:00:19,410 --> 00:00:23,085
+I have one master node which is up and running,
+
+7
+00:00:23,085 --> 00:00:26,670
+and I can even get the ports in all namespaces.
+
+8
+00:00:26,670 --> 00:00:31,005
+For that, I'm going to use the A plug.
+
+9
+00:00:31,005 --> 00:00:35,820
+Currently, I have only ports within my Kube-system namespace.
+
+10
+00:00:35,820 --> 00:00:38,220
+Let's install Argo CD.
+
+11
+00:00:38,220 --> 00:00:42,610
+For that, we can follow the guide of how to get started.
+
+12
+00:00:42,610 --> 00:00:47,855
+This particular command will create a new namespace with the name Argo CD,
+
+13
+00:00:47,855 --> 00:00:50,390
+and then it will install any dependencies it
+
+14
+00:00:50,390 --> 00:00:53,920
+requires to make sure that Argo CD is up and running.
+
+15
+00:00:53,920 --> 00:00:56,710
+We're going to copy this command.
+
+16
+00:00:57,260 --> 00:01:00,900
+Go back to our terminal and paste them.
+
+17
+00:01:00,900 --> 00:01:03,710
+So we can see a namespace has been created and then
+
+18
+00:01:03,710 --> 00:01:07,530
+we just need to install upper dependencies as well.
+
+19
+00:01:08,270 --> 00:01:11,685
+Now if we do the kubectl,
+
+20
+00:01:11,685 --> 00:01:15,935
+get ports in the Argo CD namespace,
+
+21
+00:01:15,935 --> 00:01:20,985
+we'll see that we have new ports created for Argo to start.
+
+22
+00:01:20,985 --> 00:01:25,160
+This is actually going to take a while for them to be in an up and running state.
+
+23
+00:01:25,160 --> 00:01:30,625
+Let's wait for Argo CD to have all the containers in a running status.
+
+24
+00:01:30,625 --> 00:01:35,705
+At this stage, we have all the Argo CD components up and running.
+
+25
+00:01:35,705 --> 00:01:40,110
+We have multiple components for Argo such as a Redis,
+
+26
+00:01:40,110 --> 00:01:42,255
+a server, a repo,
+
+27
+00:01:42,255 --> 00:01:44,560
+dex, and an application controller.
+
+28
+00:01:44,560 --> 00:01:47,030
+This has been already been provisioned for you and you
+
+29
+00:01:47,030 --> 00:01:50,345
+just need to wait for them to be in an up and running state.
+
+30
+00:01:50,345 --> 00:01:55,625
+The next thing to do is to access our Argo CD application.
+
+31
+00:01:55,625 --> 00:01:59,300
+Currently, we're running it in a vagrant box and we'd like to access it through
+
+32
+00:01:59,300 --> 00:02:03,770
+a web browser such as Chrome or Firefox.
+
+33
+00:02:03,770 --> 00:02:06,890
+For that, we'll need to expose our application to be
+
+34
+00:02:06,890 --> 00:02:10,910
+accessible from the vagrant box to our host machine.
+
+35
+00:02:10,910 --> 00:02:15,270
+Let's get all the services within the Argo CD namespace.
+
+36
+00:02:15,680 --> 00:02:21,440
+We can see that our Argo CD Server is exposed using a cluster IP,
+
+37
+00:02:21,440 --> 00:02:24,980
+which means it's going to be available only within the cluster using
+
+38
+00:02:24,980 --> 00:02:29,935
+this IP and is going to be available on port 80 and 443.
+
+39
+00:02:29,935 --> 00:02:33,800
+As we want to access our application outside of the cluster,
+
+40
+00:02:33,800 --> 00:02:41,375
+we can use a nodeport to expose Arg CD Server from the vagrant box to our host.
+
+41
+00:02:41,375 --> 00:02:45,350
+For that, I'm just going to copy the manifest
+
+42
+00:02:45,350 --> 00:02:49,855
+for this particular Argo CD Server and change it to a nodeport.
+
+43
+00:02:49,855 --> 00:02:53,835
+I'm going to get the service in the Argo CD namespace with the name
+
+44
+00:02:53,835 --> 00:03:00,185
+Argo CD Server and I would like to get a verbose output of it and click "Enter."
+
+45
+00:03:00,185 --> 00:03:03,860
+This will pretty much provide us with the entire spec for
+
+46
+00:03:03,860 --> 00:03:07,820
+our service that we can use and just modify the type of it.
+
+47
+00:03:07,820 --> 00:03:12,775
+Let's do that and let's edit our file,
+
+48
+00:03:12,775 --> 00:03:17,120
+and we will remove some of the fields that have been already pre-configured,
+
+49
+00:03:17,120 --> 00:03:20,105
+as these are not required for our manifest.
+
+50
+00:03:20,105 --> 00:03:24,430
+As such, we can remove our annotation.
+
+51
+00:03:24,430 --> 00:03:28,640
+We can remove the equation timestamp and
+
+52
+00:03:28,640 --> 00:03:33,980
+the manage field since these are appended when the object is created.
+
+53
+00:03:33,980 --> 00:03:38,940
+Within our metadata, we can have our labels with the name for the service,
+
+54
+00:03:38,940 --> 00:03:42,445
+which we'll mention as being a nodeport.
+
+55
+00:03:42,445 --> 00:03:44,990
+We leave our namespace,
+
+56
+00:03:44,990 --> 00:03:46,565
+which is going to be still Argo CD.
+
+57
+00:03:46,565 --> 00:03:51,655
+We can remove a resource revision since this is already appended.
+
+58
+00:03:51,655 --> 00:03:54,785
+The self-link and new ID can be removed as well.
+
+59
+00:03:54,785 --> 00:03:58,550
+We will remove the cluster IP as well since this has been
+
+60
+00:03:58,550 --> 00:04:03,145
+provisioned and added to this manifest when the cluster IP was created.
+
+61
+00:04:03,145 --> 00:04:05,045
+The last thing we're going to do,
+
+62
+00:04:05,045 --> 00:04:09,130
+we're going to change our type to NodePort.
+
+63
+00:04:09,130 --> 00:04:13,309
+Once we have changed our service type to NodePort,
+
+64
+00:04:13,309 --> 00:04:16,160
+then we just need to add the actual NodePort that we
+
+65
+00:04:16,160 --> 00:04:20,110
+can expose from our vagrant to our host.
+
+66
+00:04:20,110 --> 00:04:24,775
+For that, let's explore it a bit for our documentation for Kubernetes.
+
+67
+00:04:24,775 --> 00:04:27,890
+This is the main page for our service resource within
+
+68
+00:04:27,890 --> 00:04:30,890
+Kubernetes and we'll be able to explore how we can create
+
+69
+00:04:30,890 --> 00:04:34,430
+different types and particular capabilities
+
+70
+00:04:34,430 --> 00:04:37,070
+and functionalities of different service types.
+
+71
+00:04:37,070 --> 00:04:40,690
+The more important thing about the NodePort service type
+
+72
+00:04:40,690 --> 00:04:44,555
+is that we can allocate a port within this particular range.
+
+73
+00:04:44,555 --> 00:04:47,280
+It's going to be 30,000-32,767.
+
+74
+00:04:48,520 --> 00:04:52,730
+So we need to choose one port from this particular range.
+
+75
+00:04:52,730 --> 00:04:55,275
+The other thing we need to do, if we scroll a little bit down,
+
+76
+00:04:55,275 --> 00:04:58,100
+we'll see a YAML manifest for our service.
+
+77
+00:04:58,100 --> 00:05:00,500
+In addition to our manifest,
+
+78
+00:05:00,500 --> 00:05:03,485
+we need to add this particular nodePort.
+
+79
+00:05:03,485 --> 00:05:09,000
+Let's copy this and let's add it to our manifest.
+
+80
+00:05:09,000 --> 00:05:11,555
+What I want to do is to add a NodePort,
+
+81
+00:05:11,555 --> 00:05:14,660
+which for HTTP or port 80,
+
+82
+00:05:14,660 --> 00:05:17,195
+is going to run on 3007.
+
+83
+00:05:17,195 --> 00:05:18,785
+We can add the same thing,
+
+84
+00:05:18,785 --> 00:05:22,820
+but with a different port for HTTPS traffic,
+
+85
+00:05:22,820 --> 00:05:27,410
+just going to be secured traffic on port 3008.
+
+86
+00:05:27,410 --> 00:05:32,825
+Let's save that and let's apply this particular manifest.
+
+87
+00:05:32,825 --> 00:05:36,034
+For that, we're going to use kubectl apply referencing
+
+88
+00:05:36,034 --> 00:05:42,055
+our newly-created manifest for our NodePort service for Argo CD server.
+
+89
+00:05:42,055 --> 00:05:46,425
+Let's apply this. We can see that a new Argo CD server,
+
+90
+00:05:46,425 --> 00:05:49,725
+which is exposed using NodePort has been created.
+
+91
+00:05:49,725 --> 00:05:58,290
+We can verify that by doing a "kubectl get services" in the Argo CD namespace.
+
+92
+00:05:58,290 --> 00:06:03,240
+We see that we have the NodePort service,
+
+93
+00:06:03,240 --> 00:06:09,045
+which exposes our service on Port 3007 and 3008.
+
+94
+00:06:09,045 --> 00:06:14,620
+Cool. We have exposed it to the vagrant box so now we can access it from our machine.
+
+95
+00:06:14,620 --> 00:06:17,080
+The other thing I would like to showcase is that
+
+96
+00:06:17,080 --> 00:06:20,215
+currently our vagrant box has a static IP,
+
+97
+00:06:20,215 --> 00:06:24,235
+and we'll be able to visualize that in the vagrant file.
+
+98
+00:06:24,235 --> 00:06:26,290
+When we created our vigor file,
+
+99
+00:06:26,290 --> 00:06:28,315
+we allocated one particular IP.
+
+100
+00:06:28,315 --> 00:06:32,410
+So we'll access our vagrant box using this IP.
+
+101
+00:06:32,410 --> 00:06:37,390
+If we append the nodeport to this particular IP,
+
+102
+00:06:37,390 --> 00:06:42,395
+will be able to access Arg CD. Let's verify that.
+
+103
+00:06:42,395 --> 00:06:45,680
+If I'm going to IP we have,
+
+104
+00:06:45,680 --> 00:06:47,000
+and then we choose a port,
+
+105
+00:06:47,000 --> 00:06:50,735
+be it 3007 or 3008, click "Enter."
+
+106
+00:06:50,735 --> 00:06:54,830
+At this stage, you'll be prompted with an SSL warning.
+
+107
+00:06:54,830 --> 00:06:57,980
+This is because the Argo CD server is not set
+
+108
+00:06:57,980 --> 00:07:01,150
+up wave SSL certificates to authenticate a server.
+
+109
+00:07:01,150 --> 00:07:06,290
+Hence we establish an insecure connection and see the warning in the browser.
+
+110
+00:07:06,290 --> 00:07:13,055
+To simply access Argo CD just bypass this warning and you'll reach the login screen.
+
+111
+00:07:13,055 --> 00:07:15,730
+To connect to the Argo CD,
+
+112
+00:07:15,730 --> 00:07:18,510
+we need to use the admin credentials.
+
+113
+00:07:18,510 --> 00:07:21,630
+Currently, they have a way to give
+
+114
+00:07:21,630 --> 00:07:27,085
+the password and just copy this command which has been referenced in the exercise.
+
+115
+00:07:27,085 --> 00:07:31,745
+If you shoot, this will return us with pretty much the password,
+
+116
+00:07:31,745 --> 00:07:36,810
+which is just the name of the pod of the Argo CD server.
+
+117
+00:07:37,700 --> 00:07:42,950
+The username is going to be admin.
+
+118
+00:07:42,950 --> 00:07:47,335
+Let's login into our Argo CD server using the admin,
+
+119
+00:07:47,335 --> 00:07:50,915
+username, and the password that has been issued.
+
+120
+00:07:50,915 --> 00:07:54,155
+This is how we'll be able to authenticate and access
+
+121
+00:07:54,155 --> 00:07:58,590
+our Argo CD from within our vagrant box.
+
